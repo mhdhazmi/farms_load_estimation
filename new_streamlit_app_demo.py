@@ -56,7 +56,7 @@ def page_1():
     else:
         random_text = random_long_text = random_dynamic_input = ""
         random_number = 2
-        random_category = "Category 1"
+        random_main_type = "Category 1"
         random_multi_select = []
 
     col1, col2, col3, col4 = st.columns(4)
@@ -66,13 +66,13 @@ def page_1():
         main_type = st.selectbox(
             "Select the main type of your farm",
             options.main_type_values,
-            
+            index=options.main_type_values.index(random_main_type) if random_main_type in options.main_type_values else 0
         )
         area = st.number_input(
-            "what is the area of your farm in m^2",
-            min_value=0.00000,
-            max_value=100.00000,
-            value=random_number*1.00000,
+            "What is the area of your farm in m^2",
+            min_value=0.0,
+            max_value=100.0,
+            value=float(random_number),
             step=0.00001,
         )
         plantations = st.number_input(
@@ -88,7 +88,6 @@ def page_1():
         region = st.selectbox(
             "Select the region",
             options.region_values,
-           
         )
         activities = st.number_input(
             "How many activities are in your farm?",
@@ -100,7 +99,6 @@ def page_1():
         plantations_type = st.selectbox(
             "Select the type of plantations",
             options.plantations_type_values,
-            
         )
 
     with col3:
@@ -113,10 +111,10 @@ def page_1():
         )
         x_coordinate = st.number_input(
             "Enter the longitude of your farm",
-            min_value=0,
-            max_value=100,
-            value=random_number,
-            step=1,
+            min_value=0.0,
+            max_value=100.0,
+            value=float(random_number),
+            step=0.00001,
         )
 
         trees = st.number_input(
@@ -137,14 +135,59 @@ def page_1():
         )
         y_coordinate = st.number_input(
             "Enter the latitude of your farm",
+            min_value=0.0,
+            max_value=100.0,
+            value=float(random_number),
+            step=0.00001,
+        )
+
+        protected_houses = st.number_input(
+            "How many protected houses are in your farm?",
             min_value=0,
             max_value=100,
             value=random_number,
             step=1,
         )
 
-        protected_houses = st.number_input(
-            "How many protected houses are in your farm?",
+    st.header("Farms Equipment Information (Visits)")
+    show_extra_fields = st.checkbox("Do you have information about Electrical and Mechanical equipment in the farm?")
+
+    if show_extra_fields:
+        st.subheader("Additional Input Fields")
+       
+        extra_field1 = st.number_input(
+            "How many sprinklers are in your farm?",
+            min_value=0,
+            max_value=5,
+            value=random_number,
+            step=1,
+        )
+        extra_field2 = st.number_input(
+            "How many Mechanical Heads are in your farm?",
+            min_value=0,
+            max_value=10,
+            value=random_number,
+            step=1,
+        )
+        extra_field3 = st.number_input(
+            "How many Electrical Heads are in your farm?",
+            min_value=0,
+            max_value=10,
+            value=random_number,
+            step=1,
+        )
+        
+        
+        extra_field5 = st.number_input(
+            "How many Pumps are in your farm?",
+            min_value=0,
+            max_value=100,
+            value=random_number,
+            step=1,
+        )
+        
+        extra_field6 = st.number_input(
+            "How many Submersible Pumps are in your farm?",
             min_value=0,
             max_value=100,
             value=random_number,
@@ -167,6 +210,10 @@ def page_1():
             st.session_state.phone_number = phone_number
             st.session_state.y_coordinate = y_coordinate
             st.session_state.protected_houses = protected_houses
+            if show_extra_fields:
+                st.session_state.extra_field1 = extra_field1
+                st.session_state.extra_field2 = extra_field2
+                st.session_state.extra_field3 = extra_field3
             st.session_state.page = 1
             st.experimental_rerun()
 
@@ -216,7 +263,7 @@ def page_2():
 def page_3():
     st.title("Summary and Map")
 
-    st.subheader("The estimated electrical consumption for the farm is between  1000 kW and 2000 kW")
+    st.subheader("The estimated electrical consumption for the farm is between  X kW and Y kW")
     st.header("Farm Location Map")
 
     # Sample data for the map (you can replace this with actual data)
