@@ -263,13 +263,13 @@ def page_2():
 def page_3():
     st.title("Summary and Map")
 
-    st.subheader("The estimated electrical consumption for the farm is between  X kW and Y kW")
+    st.subheader("The estimated electrical peak consumption for the farm is between  X kW and Y kW")
     st.header("Farm Location Map")
 
     # Sample data for the map (you can replace this with actual data)
     map_data = pd.DataFrame({
-        'lat': [st.session_state.get('y_coordinate', 0)],
-        'lon': [st.session_state.get('x_coordinate', 0)]
+        'lat': [26.440113],
+        'lon': [43.713412]
     })
 
     # Create a deck.gl map using pydeck with satellite style
@@ -277,8 +277,8 @@ def page_3():
         "ScatterplotLayer",
         map_data,
         get_position="[lon, lat]",
-        get_color="[200, 30, 0, 160]",
-        get_radius=200,
+        get_color="[139, 0, 0, 160]",
+        get_radius=400,
     )
     view_state = pdk.ViewState(
         latitude=26.440113,	 # st.session_state.get('y_coordinate', 0),
